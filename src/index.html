@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <title>Modite Map Web Component Demo</title>
+  <style>
+      html,
+      body {
+        height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+  </style>
+  <script src="/build/l-map.js"></script>
+</head>
+<body>
+
+  <l-map
+    locations="[[10,20],[30,40]]"
+    tile-layer='https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
+    icon-url='https://zoranlj.000webhostapp.com/modities-map/Modus-Mark-White.png'>
+  </l-map>
+
+</body>
+</html>
+
+<!--'http://a.tile.stamen.com/toner/{z}/{x}/{y}.png'-->
+<!--'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'-->
+<!--'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'-->

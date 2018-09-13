@@ -1,0 +1,7 @@
+#l-map {
+    height: 100%;
+}
+
+img.leaflet-marker-icon {
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+}
