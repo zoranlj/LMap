@@ -12,15 +12,19 @@ import '@stencil/core';
 export namespace Components {
 
   interface LMap {
-    'iconUrl': string;
+    'center': string;
+    'iconurl': string;
     'locations': string;
-    'tileLayer': string;
+    'tilelayer': string;
+    'zoom': string;
   }
   interface LMapAttributes extends StencilHTMLAttributes {
-    'iconUrl'?: string;
+    'center'?: string;
+    'iconurl'?: string;
     'locations'?: string;
     'onMessage'?: (event: CustomEvent) => void;
-    'tileLayer'?: string;
+    'tilelayer'?: string;
+    'zoom'?: string;
   }
 }
 

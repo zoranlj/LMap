@@ -20,7 +20,7 @@ export class LMap {
   @Prop() zoom: string;
   @Watch('locations')
   handleLocationsChanged(locations: string) {
-    console.log('handleLocationsChanged');
+    console.log('l-map handleLocationsChanged');
     this.addMarkers(JSON.parse(locations));
   }
   @Event() message: EventEmitter;
@@ -48,6 +48,7 @@ export class LMap {
     tilelayer.addTo(this.LMap);
 
     this.LMap.on('click', (e:any) => {
+      console.log('l-map component send location message');
       this.message.emit(e.latlng.lat + ", " + e.latlng.lng);
     });
     this.addMarkers(JSON.parse(this.locations));
@@ -63,7 +64,6 @@ export class LMap {
       marker = L.marker(latLng, { icon: modusLogo });
       marker.addTo(this.LMap);
     });
-    console.log('l-map component send addMarkersFinished message');
   }
 
 }
