@@ -13,15 +13,17 @@ import L from 'leaflet';
 
 export class LMap {
   @Element() LMapHTMLElement: HTMLElement;
-  @Prop() iconUrl: string;
-  @Prop() tileLayer: string;
+  @Prop() iconurl: string;
+  @Prop() tilelayer: string;
   @Prop() locations: string;
+  @Prop() center: string;
+  @Prop() zoom: string;
   @Watch('locations')
   handleLocationsChanged(locations: string) {
+    console.log('handleLocationsChanged');
     this.addMarkers(JSON.parse(locations));
   }
   @Event() message: EventEmitter;
-
 
   LMap: Map;
 
@@ -32,15 +34,28 @@ export class LMap {
   }
 
   componentDidLoad() {
+    console.log('l-map componentDidLoad');
+    console.log('l-map tilelayer', this.tilelayer);
+    console.log('l-map iconurl', this.iconurl);
+    console.log('l-map locations', this.locations);
+    console.log('l-map center', this.center);
+    console.log('l-map zoom', this.zoom);
     const LMapElement: HTMLElement = this.LMapHTMLElement.shadowRoot.querySelector('#l-map');
-    this.LMap = L.map(LMapElement, {minZoom: 2, maxZoom: 6}).setView([20, -10], 3);
-    const tileLayer: TileLayer = L.tileLayer(this.tileLayer);
-    tileLayer.addTo(this.LMap);
+    // const bounds = new L.LatLngBounds(new L.LatLng(-85, 85), new L.LatLng(-180, 180));
+    this.LMap = L.map(LMapElement, {minZoom: 2, maxZoom: 6})
+      .setView(JSON.parse(this.center), Number(this.zoom));
+    const tilelayer: TileLayer = L.tileLayer(this.tilelayer);
+    tilelayer.addTo(this.LMap);
+
+    this.LMap.on('click', (e:any) => {
+      this.message.emit(e.latlng.lat + ", " + e.latlng.lng);
+    });
+    this.addMarkers(JSON.parse(this.locations));
   }
 
   addMarkers(locations) {
     const modusLogo: Icon = L.icon({
-      iconUrl: this.iconUrl,
+      iconUrl: this.iconurl,
       iconSize: [30, 30]
     });
     let marker: Marker;
@@ -48,7 +63,7 @@ export class LMap {
       marker = L.marker(latLng, { icon: modusLogo });
       marker.addTo(this.LMap);
     });
-    this.message.emit('addMarkersFinished');
+    console.log('l-map component send addMarkersFinished message');
   }
 
 }
