@@ -19,6 +19,7 @@ export namespace Components {
   interface LMapAttributes extends StencilHTMLAttributes {
     'iconUrl'?: string;
     'locations'?: string;
+    'onMessage'?: (event: CustomEvent) => void;
     'tileLayer'?: string;
   }
 }

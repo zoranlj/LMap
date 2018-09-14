@@ -1,4 +1,4 @@
-import { Component, Prop, Element, Watch } from '@stencil/core';
+import { Component, Prop, Element, Watch, Event, EventEmitter } from '@stencil/core';
 import { Map, TileLayer, Marker, Icon } from 'leaflet';
 import L from 'leaflet';
 
@@ -12,7 +12,7 @@ import L from 'leaflet';
 })
 
 export class LMap {
-
+  @Element() LMapHTMLElement: HTMLElement;
   @Prop() iconUrl: string;
   @Prop() tileLayer: string;
   @Prop() locations: string;
@@ -20,8 +20,8 @@ export class LMap {
   handleLocationsChanged(locations: string) {
     this.addMarkers(JSON.parse(locations));
   }
+  @Event() message: EventEmitter;
 
-  @Element() LMapHTMLElement: HTMLElement;
 
   LMap: Map;
 
@@ -48,6 +48,7 @@ export class LMap {
       marker = L.marker(latLng, { icon: modusLogo });
       marker.addTo(this.LMap);
     });
+    this.message.emit('addMarkersFinished');
   }
 
 }
