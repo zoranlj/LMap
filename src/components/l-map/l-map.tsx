@@ -41,8 +41,7 @@ export class LMap {
     console.log('l-map center', this.center);
     console.log('l-map zoom', this.zoom);
     const LMapElement: HTMLElement = this.LMapHTMLElement.shadowRoot.querySelector('#l-map');
-    // const bounds = new L.LatLngBounds(new L.LatLng(-85, 85), new L.LatLng(-180, 180));
-    this.LMap = L.map(LMapElement, {minZoom: 2, maxZoom: 6})
+    this.LMap = L.map(LMapElement, {minZoom: 2, maxZoom: 6, maxBounds: [[-90, -180],[90, 180]]})
       .setView(JSON.parse(this.center), Number(this.zoom));
     const tilelayer: TileLayer = L.tileLayer(this.tilelayer);
     tilelayer.addTo(this.LMap);
