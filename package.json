@@ -1,5 +1,5 @@
 {
-  "name": "l-map",
+  "name": "@zoranlj/l-map",
   "version": "0.0.1",
   "description": "Modite Map Component",
   "module": "dist/esm/index.js",

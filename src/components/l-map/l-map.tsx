@@ -1,5 +1,4 @@
 import { Component, Prop, Element, Watch, Event, EventEmitter } from '@stencil/core';
-import { Map, TileLayer, Marker, Icon } from 'leaflet';
 import L from 'leaflet';
 
 @Component({
@@ -25,7 +24,7 @@ export class LMap {
   }
   @Event() message: EventEmitter;
 
-  LMap: Map;
+  LMap;
 
   render() {
     return (
@@ -43,7 +42,7 @@ export class LMap {
     const LMapElement: HTMLElement = this.LMapHTMLElement.shadowRoot.querySelector('#l-map');
     this.LMap = L.map(LMapElement, {minZoom: 2, maxZoom: 6, maxBounds: [[-90, -180],[90, 180]]})
       .setView(JSON.parse(this.center), Number(this.zoom));
-    const tilelayer: TileLayer = L.tileLayer(this.tilelayer);
+    const tilelayer = L.tileLayer(this.tilelayer);
     tilelayer.addTo(this.LMap);
 
     this.LMap.on('click', (e:any) => {
@@ -54,11 +53,11 @@ export class LMap {
   }
 
   addMarkers(locations) {
-    const modusLogo: Icon = L.icon({
+    const modusLogo = L.icon({
       iconUrl: this.iconurl,
       iconSize: [30, 30]
     });
-    let marker: Marker;
+    let marker;
     locations.map(latLng => {
       marker = L.marker(latLng, { icon: modusLogo });
       marker.addTo(this.LMap);
