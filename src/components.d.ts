@@ -13,17 +13,21 @@ export namespace Components {
 
   interface LMap {
     'center': string;
-    'iconurl': string;
+    'iconUrl': string;
     'locations': string;
-    'tilelayer': string;
+    'maxZoom': string;
+    'minZoom': string;
+    'tileLayer': string;
     'zoom': string;
   }
   interface LMapAttributes extends StencilHTMLAttributes {
     'center'?: string;
-    'iconurl'?: string;
+    'iconUrl'?: string;
     'locations'?: string;
+    'maxZoom'?: string;
+    'minZoom'?: string;
     'onMessage'?: (event: CustomEvent) => void;
-    'tilelayer'?: string;
+    'tileLayer'?: string;
     'zoom'?: string;
   }
 }
