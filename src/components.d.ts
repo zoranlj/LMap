@@ -17,7 +17,7 @@ export namespace Components {
     'locations': string;
     'maxZoom': string;
     'minZoom': string;
-    'tileLayer': string;
+    'tileLayerUrl': string;
     'zoom': string;
   }
   interface LMapAttributes extends StencilHTMLAttributes {
@@ -27,7 +27,7 @@ export namespace Components {
     'maxZoom'?: string;
     'minZoom'?: string;
     'onMessage'?: (event: CustomEvent) => void;
-    'tileLayer'?: string;
+    'tileLayerUrl'?: string;
     'zoom'?: string;
   }
 }
