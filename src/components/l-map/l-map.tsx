@@ -1,5 +1,6 @@
 import { Component, Prop, Element, Watch, Event, EventEmitter } from '@stencil/core';
-import L from 'leaflet';
+import leaflet from 'leaflet';
+// import esri from'../../../node_modules/esri-leaflet/dist/esri-leaflet'
 
 @Component({
   tag: 'l-map',
@@ -52,10 +53,10 @@ export class LMap {
     console.log('l-map max zoom', this.maxZoom);
     const LMapElement: HTMLElement = this.LMapHTMLElement.shadowRoot.querySelector('#l-map');
 
-    this.LMap = L.map(LMapElement, { zoomControl: false, minZoom: Number(this.minZoom), maxZoom: Number(this.maxZoom), maxBounds: [[-90, -180],[90, 180]]})
+    this.LMap = leaflet.map(LMapElement, { zoomControl: false, minZoom: Number(this.minZoom), maxZoom: Number(this.maxZoom), maxBounds: [[-90, -180],[90, 180]]})
       .setView(JSON.parse(this.center), Number(this.zoom));
 
-    this.tileLayer = L.tileLayer(this.tileLayerUrl);
+    this.tileLayer = leaflet.tileLayer(this.tileLayerUrl);
     this.tileLayer.addTo(this.LMap);
 
     this.LMap.on('click', (e:any) => {
@@ -63,16 +64,26 @@ export class LMap {
       this.message.emit(e.latlng.lat + ", " + e.latlng.lng);
     });
     this.addMarkers(JSON.parse(this.locations));
+    //
+    // esri.basemapLayer('Gray').addTo(this.LMap);
+    // esri.basemapLayer('Topographic').addTo(this.LMap);
+    //
+    // esri.featureLayer({
+    //   url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3",
+    //   style: function () {
+    //     return {color: '#bada55', weight: 2 };
+    //   }
+    // }).addTo(this.LMap);
   }
 
   addMarkers(locations) {
-    const modusLogo = L.icon({
+    const modusLogo = leaflet.icon({
       iconUrl: this.iconUrl,
       iconSize: [30, 30]
     });
     let marker;
     locations.map(latLng => {
-      marker = L.marker(latLng, { icon: modusLogo });
+      marker = leaflet.marker(latLng, { icon: modusLogo });
       marker.addTo(this.LMap);
     });
   }
