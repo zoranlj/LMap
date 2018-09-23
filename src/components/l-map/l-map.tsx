@@ -6,8 +6,8 @@ L.esri = esri;
 @Component({
   tag: 'l-map',
   styleUrls: [
-    'l-map.css',
-    '../../../node_modules/leaflet/dist/leaflet.css'
+    '../../../node_modules/leaflet/dist/leaflet.css',
+    'l-map.css'
   ],
   shadow: true
 })
