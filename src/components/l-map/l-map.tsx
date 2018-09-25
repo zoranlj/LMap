@@ -50,7 +50,13 @@ export class LMap {
 
     const LMapElement: HTMLElement = this.LMapHTMLElement.shadowRoot.querySelector('#l-map');
 
-    const tileLayer = L.tileLayer(this.tileLayerUrl).addTo(this.layerGroupTiles);
+    const tileLayer = L.tileLayer(this.tileLayerUrl);
+    const esriTopographic = L.esri.basemapLayer('Topographic');
+    const esriStreets = L.esri.basemapLayer('Streets');
+    const esriGray = L.esri.basemapLayer('Gray');
+    const esriDarkGray = L.esri.basemapLayer('DarkGray');
+    const esriShadedRelief = L.esri.basemapLayer('ShadedRelief');
+    const esriImagery = L.esri.basemapLayer('Imagery');
     const esriNationalGeographic = L.esri.basemapLayer('NationalGeographic').addTo(this.layerGroupTiles);
 
     if (this.locations.length) {
@@ -66,6 +72,7 @@ export class LMap {
     });
 
     this.LMap = L.map(LMapElement, {
+      tap: false,
       zoomControl: false,
       minZoom: Number(this.minZoom),
       maxZoom: Number(this.maxZoom),
@@ -80,6 +87,12 @@ export class LMap {
 
     const baseMaps = {
       'Custom Tile Layer': tileLayer,
+      'Esri Topographic': esriTopographic,
+      'Esri Streets': esriStreets,
+      'Esri Gray': esriGray,
+      'Esri DarkGray': esriDarkGray,
+      'Esri ShadedRelief': esriShadedRelief,
+      'Esri Imagery': esriImagery,
       'Esri National Geographic': esriNationalGeographic
     };
 
@@ -88,7 +101,9 @@ export class LMap {
       'Esri States': esriFeatureLayerStates
     };
 
-    L.control.layers(baseMaps, overlayMaps).addTo(this.LMap);
+    L.control.layers(baseMaps, overlayMaps, {
+      position: 'bottomright'
+    }).addTo(this.LMap);
 
   }
 
