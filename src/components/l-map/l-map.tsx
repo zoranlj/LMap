@@ -20,6 +20,8 @@ export class LMap {
   @Prop() zoom: string;
   @Prop() minZoom: string;
   @Prop() maxZoom: string;
+  @Prop() currentLocation: string;
+  @Prop() currentLocationIconUrl: string;
   @Prop() locations: string;
   @Watch('locations')
   handleLocationsChanged(locations: string) {
@@ -63,8 +65,12 @@ export class LMap {
       this.LMap.invalidateSize();
     },2000);
 
-    if (this.locations.length) {
+    if (this.locations && this.locations.length) {
       this.addMarkers(JSON.parse(this.locations));
+    }
+
+    if (this.currentLocation && this.currentLocation.length) {
+      this.addCurrentLocationMarker(JSON.parse(this.currentLocation));
     }
 
     let esriFeatureLayerStates = L.esri.featureLayer({
@@ -78,12 +84,12 @@ export class LMap {
     this.LMap = L.map(LMapElement, {
       tap: false,
       zoomControl: false,
-      minZoom: Number(this.minZoom),
-      maxZoom: Number(this.maxZoom),
+      minZoom: Number(this.minZoom) || 0,
+      maxZoom: Number(this.maxZoom) || 16,
       maxBounds: [[-90, -180],[90, 180]],
       layers: [this.layerGroupTiles, this.layerGroupLocations, esriFeatureLayerStates],
     })
-      .setView(JSON.parse(this.center), Number(this.zoom))
+      .setView(this.center? JSON.parse(this.center) : [0,0], this.zoom ? Number(this.zoom) : 2)
       .on('click', (e:any) => {
           console.log('l-map component send location message');
           this.message.emit(e.latlng.lat + ', ' + e.latlng.lng);
@@ -112,13 +118,21 @@ export class LMap {
   }
 
   addMarkers(locations) {
-    const modusLogo = L.icon({
+    const customIcon = L.icon({
       iconUrl: this.iconUrl,
       iconSize: [30, 30]
     });
     locations.map(latLng => {
-      L.marker(latLng, { icon: modusLogo }).addTo(this.layerGroupLocations);
+      L.marker(latLng, { icon: customIcon }).addTo(this.layerGroupLocations);
     });
+  }
+
+  addCurrentLocationMarker(location) {
+    const customIcon = L.icon({
+      iconUrl: this.currentLocationIconUrl,
+      iconSize: [30, 30]
+    });
+    L.marker(location, { icon: customIcon }).addTo(this.layerGroupLocations);
   }
 
 }

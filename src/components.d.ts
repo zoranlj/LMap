@@ -13,6 +13,8 @@ export namespace Components {
 
   interface LMap {
     'center': string;
+    'currentLocation': string;
+    'currentLocationIconUrl': string;
     'iconUrl': string;
     'locations': string;
     'maxZoom': string;
@@ -22,6 +24,8 @@ export namespace Components {
   }
   interface LMapAttributes extends StencilHTMLAttributes {
     'center'?: string;
+    'currentLocation'?: string;
+    'currentLocationIconUrl'?: string;
     'iconUrl'?: string;
     'locations'?: string;
     'maxZoom'?: string;
