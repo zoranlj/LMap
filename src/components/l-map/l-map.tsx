@@ -59,6 +59,10 @@ export class LMap {
     const esriImagery = L.esri.basemapLayer('Imagery');
     const esriNationalGeographic = L.esri.basemapLayer('NationalGeographic').addTo(this.layerGroupTiles);
 
+    setTimeout(() => {
+      this.LMap.invalidateSize();
+    },2000);
+
     if (this.locations.length) {
       this.addMarkers(JSON.parse(this.locations));
     }
