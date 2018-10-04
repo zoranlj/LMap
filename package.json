@@ -1,9 +1,13 @@
 {
-  "name": "@zoranlj/l-map",
-  "version": "0.0.1",
-  "description": "Modite Map Component",
+  "name": "modus-l-map",
+  "version": "1.0.0",
+  "author": "Modus Create <contact@moduscreate.com> (http://moduscreate.com)",
+  "repository": "github:ModusCreateOrg/",
+  "description": "StencilJS custom map web components with LeafletJS",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
@@ -26,7 +30,6 @@
     "@types/esri-leaflet": "^2.1.4",
     "jest": "^23.4.2"
   },
-  "author": "Moduscreate",
   "jest": {
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
